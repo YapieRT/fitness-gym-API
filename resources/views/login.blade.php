@@ -29,7 +29,6 @@
     </div>
 </header>
     <section class="mainWrapper">
-
         <div>
             @if ($errors->any())
                 <div>
