@@ -5,49 +5,40 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function create()
-    {
-        return view('register');
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
+    function register(Request $request){
+        $validator = Validator::make($request->all(), [
             'name'=>'required',
             'surname'=>'required',
             'phone_number'=>'required|unique:users',
-            'password'=>'required|confirmed',
+            'password'=>'required',
         ]);
 
-        $user = User::create([
-            'name'=>$request->name,
-            'surname'=>$request->surname,
-            'phone_number'=>$request->phone_number,
-            'password'=>bcrypt($request->password),
-        ]);
-        Auth::login($user);
-        return redirect()->route('home');
-    }
-
-    public function loginForm(){
-        return view('login');
-    }
-
-    public function login(Request $request)
-    {
-        $request->validate([
-            'userTel'=>'required',
-            'userPass'=>'required|min:6',
-        ]);
-        if(Auth::attempt([
-            'phone_number'=>$request->userTel,
-            'password'=>$request->userPass,
-        ])){
-            return redirect()->home();
+        if(!$validator->fails()) {
+            $user = User::create([
+                'name' => $request->input('name'),
+                'surname' => $request->input('surname'),
+                'phone_number' => $request->input('phone_number'),
+                'password' => bcrypt($request->input('password'))
+            ]);
+            Auth::login($user);
+            return true;
         }
-        return redirect()->back()->with('error', 'Неправильно введена номер телефону та/або пароль');
+        else {
+            return false;
+        }
+    }
+
+    function login(Request $request){
+        if(Auth::attempt([
+            'phone_number'=>$request->input('phone_number'),
+            'password'=>$request->input('password'),
+        ])){
+            return true;
+        }
+        return false;
     }
 }
