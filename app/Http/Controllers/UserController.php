@@ -41,4 +41,8 @@ class UserController extends Controller
         }
         return false;
     }
+
+    function logout(){
+        Auth::logout();
+    }
 }
