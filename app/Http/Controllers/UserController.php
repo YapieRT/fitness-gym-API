@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    function register(Request $request){
+    public function register(Request $request){
         $validator = Validator::make($request->all(), [
             'name'=>'required',
             'surname'=>'required',
@@ -32,7 +32,7 @@ class UserController extends Controller
         }
     }
 
-    function login(Request $request){
+    public function login(Request $request){
         if(Auth::attempt([
             'phone_number'=>$request->input('phone_number'),
             'password'=>$request->input('password'),
@@ -42,7 +42,7 @@ class UserController extends Controller
         return false;
     }
 
-    function logout(){
+    public function logout(){
         Auth::logout();
     }
 }
