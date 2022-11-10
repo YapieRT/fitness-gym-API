@@ -29,5 +29,8 @@ Route::post('organizer', [OrganizerController::class, 'store']);
 // Show Customer
 Route::get('organizer/{id}', [OrganizerController::class, 'show']);
 
+// Delete Customer
+Route::delete('organizer/{customer}', [OrganizerController::class, 'delete']);
+
 // Show All Coaches On Home Page
 Route::get('coaches', [HomeController::class, 'showCoaches']);

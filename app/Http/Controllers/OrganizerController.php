@@ -35,7 +35,10 @@ class OrganizerController extends Controller
 
             if (!Organizer::where('id', $customerId)->exists()) {
                 $seasonTicketName = $request->input('season_ticket_name');
-                $sessionsLeft = 8; // DB::select('select sessions_amount from season_ticket_overview where `name` = ?', [$seasonTicketName]);
+
+                $ticket = DB::select('select sessions_amount from season_ticket_overview where `name` = ?', [$seasonTicketName]);
+                $sessionsLeft = $ticket[0]->sessions_amount;
+
                 $buyDate = Carbon::now()->format('Y-m-d');
                 $lastDate = Carbon::now()->addMonth()->format('Y-m-d');
                 $discountGroup = $request->input('discount_group');
@@ -81,5 +84,11 @@ class OrganizerController extends Controller
         ];
 
         return $customer;
+    }
+
+    // Delete Customer
+    public function delete(Organizer $customer) {
+        $customer->delete();
+        return response()->json(null);
     }
 }
