@@ -21,16 +21,13 @@ Route::post('login', [UserController::class, 'login']);
 Route::get('logout', [UserController::class, 'logout']);
 
 // Show All Customers
-Route::get('organizer',
-[OrganizerController::class, 'index']);
+Route::get('organizer', [OrganizerController::class, 'index']);
 
 // Add New Customer
-Route::post('organizer',
-[OrganizerController::class, 'store']);
+Route::post('organizer', [OrganizerController::class, 'store']);
 
 // Show Customer
-Route::get('organizer/{id}',
-[OrganizerController::class, 'show']);
+Route::get('organizer/{id}', [OrganizerController::class, 'show']);
 
 // Show All Coaches On Home Page
 Route::get('coaches', [HomeController::class, 'showCoaches']);
