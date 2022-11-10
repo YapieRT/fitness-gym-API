@@ -14,6 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call([
+            CoachSeeder::class,]);
+
         // Seed Tickets with Data
         /////////////////////////////////////////////
         DB::table('season_ticket_overview')->insert([
