@@ -14,13 +14,13 @@ class Organizer extends Migration
     public function up()
     {
         Schema::create('gym_clients_session_tickets', function (Blueprint $table) {
-            $table->integer('_id');
-            $table->string('_season_ticket_name');
-            $table->string('_sessions_left');
-            $table->timestamp('_buy_date')->default((new DateTime)->format('Y-m-d'));
-            $table->timestamp('_last_date')->default((new DateTime)->format('Y-m-d'));
-            $table->string('_discount_group');
-            $table->integer('_fixed_coach_id');
+            $table->integer('id');
+            $table->string('season_ticket_name');
+            $table->string('sessions_left');
+            $table->timestamp('buy_date')->default((new DateTime)->format('Y-m-d'));
+            $table->timestamp('last_date')->default((new DateTime)->format('Y-m-d'));
+            $table->string('discount_group');
+            $table->integer('fixed_coach_id');
         });
     }
 

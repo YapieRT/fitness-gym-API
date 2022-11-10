@@ -19,12 +19,12 @@ class Organizer extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        '_id',
-        '_season_ticket_name',
-        '_sessions_left',
-        '_buy_date',
-        '_last_date',
-        '_discount_group',
-        '_fixed_coach_id'
+        'id',
+        'season_ticket_name',
+        'sessions_left',
+        'buy_date',
+        'last_date',
+        'discount_group',
+        'fixed_coach_id'
     ];
 }

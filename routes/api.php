@@ -21,3 +21,7 @@ Route::get('organizer',
 // Add New Customer
 Route::post('organizer',
 [OrganizerController::class, 'store']);
+
+// Show Customer
+Route::get('organizer/{id}',
+[OrganizerController::class, 'show']);

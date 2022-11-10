@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Organizer;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Organizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -31,7 +32,7 @@ class OrganizerController extends Controller
             $customerId = DB::select('select id from users where `phone_number` = ?', [$request->input('phone_number')]);
             $customerId = $customerId[0]->id;
 
-            if (!Organizer::where('_id', $customerId)->exists()) {
+            if (!Organizer::where('id', $customerId)->exists()) {
                 $seasonTicketName = $request->input('season_ticket_name');
                 $sessionsLeft = 8; // DB::select('select sessions_amount from season_ticket_overview where `name` = ?', [$seasonTicketName]);
                 $buyDate = Carbon::now()->format('Y-m-d');
@@ -40,13 +41,13 @@ class OrganizerController extends Controller
                 $fixedCoachId = $request->input('fixed_coach_id');
     
                 return Organizer::create([
-                    '_id' => $customerId,
-                    '_season_ticket_name' => $seasonTicketName,
-                    '_sessions_left' => $sessionsLeft,
-                    '_buy_date' => $buyDate,
-                    '_last_date' => $lastDate,
-                    '_discount_group' => $discountGroup,
-                    '_fixed_coach_id' => $fixedCoachId
+                    'id' => $customerId,
+                    'season_ticket_name' => $seasonTicketName,
+                    'sessions_left' => $sessionsLeft,
+                    'buy_date' => $buyDate,
+                    'last_date' => $lastDate,
+                    'discount_group' => $discountGroup,
+                    'fixed_coach_id' => $fixedCoachId
                 ]);
             } else {
                 return 'Customer already exists';                
@@ -55,5 +56,20 @@ class OrganizerController extends Controller
         else {
             return "Couldn't add Customer";
         }
+    }
+
+    // Show Customer
+    public function show($id) {
+        $customerSession = Organizer::find($id);
+        $customerInfo = User::find($id);
+
+        $customer = [
+            'name' => $customerInfo->name,
+            'surname' => $customerInfo->surname,
+            'phone_number' => $customerInfo->phone_number,
+            'season_ticket_name' => $customerSession->season_ticket_name,
+        ];
+
+        return $customer;
     }
 }
