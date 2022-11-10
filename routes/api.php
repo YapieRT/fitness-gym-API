@@ -17,3 +17,7 @@ Route::get('logout', [UserController::class, 'logout']);
 // Show All Customers
 Route::get('organizer',
 [OrganizerController::class, 'index']);
+
+// Add New Customer
+Route::post('organizer',
+[OrganizerController::class, 'store']);
