@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coach;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Organizer;
@@ -63,11 +64,20 @@ class OrganizerController extends Controller
         $customerSession = Organizer::find($id);
         $customerInfo = User::find($id);
 
+        $coachInitials = null;
+        if ($customerSession->fixed_coach_id) {
+            $coachInfo = Coach::find($customerSession->fixed_coach_id);
+            if ($coachInfo) {
+                $coachInitials = $coachInfo->name . " " . $coachInfo->surname;
+            }
+        }
+
         $customer = [
             'name' => $customerInfo->name,
             'surname' => $customerInfo->surname,
             'phone_number' => $customerInfo->phone_number,
             'season_ticket_name' => $customerSession->season_ticket_name,
+            'coach_initials' => $coachInitials,
         ];
 
         return $customer;
