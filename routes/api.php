@@ -20,6 +20,9 @@ Route::post('login', [UserController::class, 'login']);
 // Logout User
 Route::get('logout', [UserController::class, 'logout']);
 
+// Show User Info
+Route::get('user-info/{id}', [UserController::class, 'userInfo']);
+
 // Show All Customers
 Route::get('organizer', [OrganizerController::class, 'index']);
 
