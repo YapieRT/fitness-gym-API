@@ -29,6 +29,9 @@ Route::post('organizer', [OrganizerController::class, 'store']);
 // Show Customer
 Route::get('organizer/{id}', [OrganizerController::class, 'show']);
 
+// Update Customer
+Route::put('organizer/{id}', [OrganizerController::class, 'update']);
+
 // Delete Customer
 Route::delete('organizer/{customer}', [OrganizerController::class, 'delete']);
 

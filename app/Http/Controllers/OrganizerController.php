@@ -58,7 +58,7 @@ class OrganizerController extends Controller
             }
         }
         else {
-            return "Couldn't add Customer";
+            return "Couldn't add customer";
         }
     }
 
@@ -84,6 +84,43 @@ class OrganizerController extends Controller
         ];
 
         return $customer;
+    }
+
+    // Update Customer
+    public function update(Request $request, $id) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'surname' => 'required',
+            'phone_number' => 'required',
+            'season_ticket_name' => 'required',
+        ]);
+
+        if(!$validator->fails()) {
+            $customer = Organizer::find($id);
+
+            if ($customer != null) {
+                $user = User::find($customer->id);
+
+                $user->name = $request->get('name');
+                $user->surname = $request->get('surname');
+                $user->phone_number = $request->get('phone_number');
+                $customer->season_ticket_name = $request->get('season_ticket_name');
+                $customer->buy_date = Carbon::now()->format('Y-m-d');
+                $customer->last_date = Carbon::now()->addMonth()->format('Y-m-d');
+                $customer->discount_group = $request->get('discount_group');
+                $customer->fixed_coach_id = $request->get('fixed_coach_id');
+
+                $user->save();
+                $customer->save();
+
+                return "Updated customer";
+            } else {
+                return 'Customer not found';                
+            }
+        }
+        else {
+            return "Couldn't update customer";
+        }
     }
 
     // Delete Customer
