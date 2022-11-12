@@ -14,7 +14,23 @@ class OrganizerController extends Controller
 {
     // Show All Customers
     public function index() {
-        return Organizer::all();
+        $organizer =  Organizer::all();
+        $customers = [];
+        
+        foreach ($organizer as $customer) {
+            $user = User::find($customer->id);
+            
+            $temp = [
+                'name' => $user->name,
+                'surname' => $user->surname,
+                'phone_number' => $user->phone_number,
+                'status' => $user->status,
+                'season_ticket_name' => $customer->season_ticket_name
+            ];
+            array_push($customers, $temp);
+        }
+
+        return $customers;
     }
 
     // Add New Customer
