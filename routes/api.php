@@ -40,3 +40,9 @@ Route::delete('organizer/{customer}', [OrganizerController::class, 'delete']);
 
 // Show All Coaches On Home Page
 Route::get('coaches', [HomeController::class, 'showCoaches']);
+
+// Get all Tariffs
+Route::get('tariffs', [HomeController::class, 'showTariffs']);
+
+// Get all Discounts
+Route::get('discounts', [HomeController::class, 'showDiscounts']);
