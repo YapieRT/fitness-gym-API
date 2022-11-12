@@ -15,8 +15,6 @@ class OrganizerController extends Controller
     // Show All Customers
     public function index() {
         return Organizer::all();
-        // $customers = DB::table('gym_clients_session_tickets')->get();
-        // return $customers;
     }
 
     // Add New Customer
@@ -97,6 +95,8 @@ class OrganizerController extends Controller
 
         if(!$validator->fails()) {
             $customer = Organizer::find($id);
+            $ticket = DB::select('select sessions_amount from season_ticket_overview where `name` = ?', [$request->get('season_ticket_name')]);
+            $sessionsLeft = $ticket[0]->sessions_amount;
 
             if ($customer != null) {
                 $user = User::find($customer->id);
@@ -105,6 +105,7 @@ class OrganizerController extends Controller
                 $user->surname = $request->get('surname');
                 $user->phone_number = $request->get('phone_number');
                 $customer->season_ticket_name = $request->get('season_ticket_name');
+                $customer->sessions_left = $sessionsLeft;
                 $customer->buy_date = Carbon::now()->format('Y-m-d');
                 $customer->last_date = Carbon::now()->addMonth()->format('Y-m-d');
                 $customer->discount_group = $request->get('discount_group');
