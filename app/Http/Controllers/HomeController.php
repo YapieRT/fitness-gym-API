@@ -16,11 +16,33 @@ class HomeController extends Controller
 
     // Get all Tariffs
     public function showTariffs() {
-        return DB::select('select * from season_ticket_overview');
+        $descriptions = DB::table('season_tickets_descriptions')->get();
+        $tickets = DB::table('season_ticket_overview')->get();
+        
+        $all = [];
+        foreach ($tickets as $ticket) {
+            $temp = [
+                'name' => $ticket->name,
+                'sessions_amount' => $ticket->sessions_amount,
+                'price' => $ticket->price,
+            ];
+
+            foreach ($descriptions as $description) {
+                if ($ticket->name == $description->ticket_name) {
+                    array_push($temp, [
+                        "description" => $description->season_tickets_description,
+                        "available" => $description->available
+                    ]);
+                }
+            }
+            array_push($all, $temp);
+        }
+
+        return $all;
     }
 
     // Get all Discounts
     public function showDiscounts() {
-        return DB::select('select * from discounts');
+        return DB::table('discounts')->get();
     }
 }
