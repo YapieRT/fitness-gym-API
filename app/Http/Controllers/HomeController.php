@@ -48,4 +48,16 @@ class HomeController extends Controller
     {
         return DB::table('discounts')->get();
     }
+
+    // Make season ticket order
+    public function ticketOrder()
+    {
+        $data = [
+            'tariffs' => DB::table('season_ticket_overview')->get(),
+            'discounts' => DB::table('discounts')->get(),
+            'coaches' => Coach::all(),
+        ];
+        return $data;
+    }
+
 }

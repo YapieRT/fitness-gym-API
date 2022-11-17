@@ -46,3 +46,6 @@ Route::get('tariffs', [HomeController::class, 'showTariffs']);
 
 // Get all Discounts
 Route::get('discounts', [HomeController::class, 'showDiscounts']);
+
+// Ticket Order
+Route::get('order', [HomeController::class, 'ticketOrder']);
