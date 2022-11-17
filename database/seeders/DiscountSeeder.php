@@ -18,16 +18,19 @@ class DiscountSeeder extends Seeder
         /////////////////////////////////////////////
         DB::table('discounts')->insert([
             'name' => 'alpha',
+            'description_title'=>'Група 1',
             'multiplier' => 0.9
         ]);
 
         DB::table('discounts')->insert([
             'name' => 'beta',
+            'description_title'=>'Група 2',
             'multiplier' => 0.85
         ]);
 
         DB::table('discounts')->insert([
             'name' => 'gamma',
+            'description_title'=>'Група 3',
             'multiplier' => 0.8
         ]);
         //////////////////////////////////////////////
