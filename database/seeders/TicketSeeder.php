@@ -18,18 +18,21 @@ class TicketSeeder extends Seeder
         /////////////////////////////////////////////
         DB::table('season_ticket_overview')->insert([
             'name' => 'basic',
+            'description_title'=>'Базовий',
             'sessions_amount' => 8,
             'price' => 400
         ]);
 
         DB::table('season_ticket_overview')->insert([
             'name' => 'basic_plus',
+            'description_title'=>'Базовий+',
             'sessions_amount' => 12,
             'price' => 500
         ]);
 
         DB::table('season_ticket_overview')->insert([
             'name' => 'unlimited',
+            'description_title'=>'Безліміт',
             'sessions_amount' => 999,
             'price' => 600
         ]);

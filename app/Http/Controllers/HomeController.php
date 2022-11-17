@@ -9,16 +9,18 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     // Get all Coaches
-    public function showCoaches(){
+    public function showCoaches()
+    {
         $coaches = Coach::all();
         return $coaches;
     }
 
     // Get all Tariffs
-    public function showTariffs() {
+    public function showTariffs()
+    {
         $descriptions = DB::table('season_tickets_descriptions')->get();
         $tickets = DB::table('season_ticket_overview')->get();
-        
+
         $all = [];
         foreach ($tickets as $ticket) {
             $temp = [
@@ -42,7 +44,8 @@ class HomeController extends Controller
     }
 
     // Get all Discounts
-    public function showDiscounts() {
+    public function showDiscounts()
+    {
         return DB::table('discounts')->get();
     }
 }
